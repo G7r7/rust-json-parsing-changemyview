@@ -1,0 +1,45 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'rust-json-parsing-changemyview'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=rust-json-parsing-changemyview",
+                    "--package=rust-json-parsing-changemyview"
+                ],
+                "filter": {
+                    "name": "rust-json-parsing-changemyview",
+                    "kind": "bin"
+                }
+            },
+            "args": ["all/heldout_period_data.jsonlist"],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'rust-json-parsing-changemyview'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=rust-json-parsing-changemyview",
+                    "--package=rust-json-parsing-changemyview"
+                ],
+                "filter": {
+                    "name": "rust-json-parsing-changemyview",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

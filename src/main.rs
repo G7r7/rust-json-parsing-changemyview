@@ -1,10 +1,12 @@
 use std::io;
 use std::{env, io::BufRead};
 use std::fs::File;
-use serde_json::{Value};
+use serde_json::{Value, Deserializer};
 
 mod line_count;
 use line_count::count_lines;
+
+use crate::line_count::get_line_content;
 
 fn main() {
 
@@ -22,43 +24,24 @@ fn main() {
     println!("{line_nb} lines counted in the file: {file_path}");
     
     // Reading user input for line number
-    let mut selected_line_nb = 0u32;
+    let mut selected_line_nb: usize = 0;
     while  selected_line_nb <= 0 || selected_line_nb > line_nb {
         println!("Type in a valid line number to analyze (1-{line_nb}): ");
         let mut input = String::new();
         io::stdin().read_line(&mut input).unwrap();
-        match input.trim().parse::<u32>() {
+        match input.trim().parse() {
             Ok(value) => selected_line_nb = value,
             Err(_) => continue
         }
     }
 
+    // Parsing the selected line 
+    let string = get_line_content(&file, selected_line_nb);
+    let json: Value;
+    match serde_json::from_str(&string) {
+        Ok(value) => json = value,
+        Err(err) => panic!("Can't parse line content: {err}")
+    }
 
-    // println!("You typed: {}", input.trim());
-
-    // let mut json_strings = Vec::<String>::new();
-
-    // let lines = std::io::BufReader::new(file).lines();
-
-    // for line in lines {
-    //     if let Ok(json_string) = line {
-    //         json_strings.push(json_string)
-    //     }
-    // }
-
-    // let mut jsons = Vec::<Value>::new();
-
-    // for json_string in json_strings {
-    //     let result = serde_json::from_str(&json_string);
-    //     match result {
-    //         Ok(value) => {
-    //             jsons.push(value)    
-    //         }
-    //         Err(err) => {
-    //             panic!("{}", err)
-    //         }
-    //     }
-    // }
-
-    // println!("{}", jsons[0]["domain"]);
+    println!("{}", json[0]["domain"]);
 }

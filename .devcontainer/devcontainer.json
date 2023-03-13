@@ -6,6 +6,13 @@
 	"image": "mcr.microsoft.com/devcontainers/rust:0-1-bullseye",
 	"features": {
 		"ghcr.io/devcontainers/features/git:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"mhutchie.git-graph"
+			]
+		}
 	}
 
 	// Use 'mounts' to make the cargo cache persistent in a Docker Volume.

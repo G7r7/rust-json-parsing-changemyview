@@ -45,5 +45,5 @@ fn main() {
         Err(err) => panic!("Can't parse line content: {err}"),
     }
 
-    println!("{}", json[0]["domain"]);
+    println!("{}", json["domain"]);
 }

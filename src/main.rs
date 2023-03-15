@@ -1,13 +1,14 @@
-use serde_json::{Deserializer, Value};
-use std::fs::File;
+use serde_json::{Value};
 use std::io;
 use std::path::Path;
-use std::{env, io::BufRead};
+use std::env;
 
 mod line_count;
-use line_count::count_lines;
-
-use crate::line_count::get_line_content;
+use line_count::{count_lines, get_line_content};
+mod render;
+use render::render;
+mod schema;
+use schema::Submission;
 
 fn main() {
     // Reading and checking command line arguments
@@ -39,11 +40,11 @@ fn main() {
 
     // Parsing the selected line
     let string = get_line_content(&path, selected_line_nb);
-    let json: Value;
+    let json: Submission;
     match serde_json::from_str(&string) {
         Ok(value) => json = value,
         Err(err) => panic!("Can't parse line content: {err}"),
     }
 
-    println!("{}", json["domain"]);
+    render(json);
 }

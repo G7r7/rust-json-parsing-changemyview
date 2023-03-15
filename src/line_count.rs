@@ -1,6 +1,6 @@
-use std::{fs::File, io::BufRead, io::BufReader, path::Path, str::FromStr};
+use std::{fs::File, io::BufRead, io::BufReader, path::Path};
 
-pub fn get_reader(path: &Path) -> BufReader<File> {
+fn get_reader(path: &Path) -> BufReader<File> {
     BufReader::new(File::open(path).unwrap())
 }
 

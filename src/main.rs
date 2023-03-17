@@ -1,5 +1,6 @@
 use serde_json;
-use std::io;
+use std::fs::File;
+use std::io::{self, BufReader, BufRead};
 use std::path::Path;
 use std::env;
 
@@ -25,6 +26,24 @@ fn main() {
         panic!("Invalid number of lines.")
     }
     println!("{line_nb} lines counted in the file: {file_path}");
+
+    // Parse all submissions
+    let mut check_syntax = false;
+    loop {
+        println!("Check syntax (default: n)? (y/n):");
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).unwrap();
+        match input.trim().parse::<String>() {
+            Ok(value) => {if value == "y" {check_syntax = true; break} else if value == "n" || value.len() == 0 {break}},
+            Err(_) => continue,
+        }
+    }
+    if check_syntax {
+        let reader = BufReader::new(File::open(path).unwrap());
+        let iterator = reader.lines();
+        iterator.flatten().for_each(|string|serde_json::from_str(&string).unwrap());
+    }
+
 
     // Reading user input for line number
     let mut selected_line_nb: usize = 0;

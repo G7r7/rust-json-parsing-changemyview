@@ -47,5 +47,14 @@ fn main() {
         Err(err) => panic!("Can't parse line content: {err}"),
     }
 
-    render(json);
+    // Asking for render path
+    const DEFAULT_PATH: &str = "./render.html";
+    println!("Type in render file path (default: {DEFAULT_PATH}): ");
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).unwrap();
+    input = input.trim().into();
+    if input.len() == 0 { input = DEFAULT_PATH.to_string() }
+    let out_path = Path::new(&input);
+
+    render(&json, out_path);
 }

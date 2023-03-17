@@ -1,25 +1,31 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
-
 struct RepliesData {
     children: Vec<String>
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-
 struct Replies {
+    kind: String,
     data: RepliesData
 }
 
-#[derive(Debug, Serialize, Deserialize)]
 
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(untagged)]
+enum RepliesEnum {
+    Replies(Replies),
+    String(String)
+}
+
+#[derive(Debug, Serialize, Deserialize)]
 struct Comment {
     id: String,
     author: String,
     body: String,
     body_html: String,
-    replies: Replies,
+    replies: RepliesEnum,
     score: usize
 }
 

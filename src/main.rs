@@ -1,4 +1,4 @@
-use serde_json::{Value};
+use serde_json;
 use std::io;
 use std::path::Path;
 use std::env;
@@ -40,6 +40,7 @@ fn main() {
 
     // Parsing the selected line
     let string = get_line_content(&path, selected_line_nb);
+    // dbg!(string);
     let json: Submission;
     match serde_json::from_str(&string) {
         Ok(value) => json = value,

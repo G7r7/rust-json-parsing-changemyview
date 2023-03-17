@@ -1,49 +1,49 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
-struct RepliesData {
-    children: Vec<String>
+pub struct RepliesData {
+    pub children: Vec<String>
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-struct Replies {
-    kind: String,
-    data: RepliesData
+pub struct Replies {
+    pub kind: String,
+    pub data: RepliesData
 }
 
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(untagged)]
-enum RepliesEnum {
+pub enum RepliesEnum {
     Replies(Replies),
     String(String)
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-struct Comment {
-    id: String,
-    author: String,
-    body: String,
-    body_html: String,
-    replies: RepliesEnum,
-    score: usize
+pub struct Comment {
+    pub id: String,
+    pub author: String,
+    pub body: String,
+    pub body_html: String,
+    pub replies: RepliesEnum,
+    pub score: usize
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Submission {
-    id: String,
-    author: String,
-    comments: Vec<Comment>,
-    domain: String,
-    ups: usize,
-    downs: usize,
-    name: String,
-    num_comments: usize,
-    score: usize,
-    selftext: String,
-    selftext_html: String,
-    subreddit: String,
-    subreddit_id: String,
-    title: String,
-    url: String
+    pub id: String,
+    pub author: String,
+    pub comments: Vec<Comment>,
+    pub domain: String,
+    pub ups: usize,
+    pub downs: usize,
+    pub name: String,
+    pub num_comments: usize,
+    pub score: usize,
+    pub selftext: String,
+    pub selftext_html: String,
+    pub subreddit: String,
+    pub subreddit_id: String,
+    pub title: String,
+    pub url: String
 }

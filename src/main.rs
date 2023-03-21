@@ -52,7 +52,7 @@ fn main() {
                 };
             }
         );
-        println!("Checking done: {{line_nb - invalid_line_nb}} valids and {invalid_line_nb} invalids.")
+        println!("Checking done: {} valids and {invalid_line_nb} invalids.", line_nb - invalid_line_nb)
     }
 
 

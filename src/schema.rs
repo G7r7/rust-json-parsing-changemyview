@@ -26,7 +26,7 @@ pub struct Comment {
     pub body: String,
     pub body_html: String,
     pub replies: RepliesEnum,
-    pub score: usize
+    pub score: i32
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -39,7 +39,7 @@ pub struct Submission {
     pub downs: usize,
     pub name: String,
     pub num_comments: usize,
-    pub score: usize,
+    pub score: i32,
     pub selftext: String,
     pub selftext_html: String,
     pub subreddit: String,

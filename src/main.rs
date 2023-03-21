@@ -39,9 +39,20 @@ fn main() {
         }
     }
     if check_syntax {
+        let mut checked_line_nb = 0;
+        let mut invalid_line_nb = 0;
         let reader = BufReader::new(File::open(path).unwrap());
         let iterator = reader.lines();
-        iterator.flatten().for_each(|string|serde_json::from_str(&string).unwrap());
+        iterator.flatten().for_each(
+            |string| { 
+                checked_line_nb += 1;
+                match serde_json::from_str::<Submission>(&string) {
+                    Ok(_) => { println!("Checked {checked_line_nb}/{line_nb}") },
+                    Err(err) => {invalid_line_nb += 1; println!("Error parsing line n° {checked_line_nb}: {err}");},
+                };
+            }
+        );
+        println!("Checking done: {{line_nb - invalid_line_nb}} valids and {invalid_line_nb} invalids.")
     }
 
 
